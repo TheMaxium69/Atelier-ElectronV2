@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+
+<p id="token">Token : </p>
+<button onclick="test()">Coucou au back</button>
+
+</body>
+</html>
+
+<script>
+
+console.log("coucou je suis le front");
+
+const ipc = require('electron').ipcRenderer;
+
+
+let pseudo = "TheMaximeSan"
+function test() {
+
+    ipc.send('hello', pseudo);
+
+}
+
+ipc.on('getMyToken', (event, token) => {
+    let pToken = document.getElementById("token");
+    pToken.innerHTML = "Token : " + token;
+})
+
+</script>
+
