@@ -69,27 +69,49 @@ ipc.on('hello', (event, pseudo) => {
 
     let url = path.join(app.getPath('appData') + '/.myElectron/', "token.txt");
 
-    // if (fs.existsSync(url)) {
-    //     fs.rm(url, (err) => {
-    //         if (err) throw err;
-    //         console.log('Fichier supprime !');
-    //     })
-    // }
+    if (fs.existsSync(url)) {
 
-    fs.appendFile(url, token,
-        function (err) {
+        fs.unlink(url, (err) => {
             if (err) throw err;
-            console.log('Fichier cree !');
-        }
-    );
+            console.log('Fichier supprime !');
 
-    /* LECTURE DU FICHIER */
 
-    fs.readFile(url, 'utf8', function (err, data) {
-        if (err) throw err;
-        console.log("Resultat du fichier : " + data);
-    })
+            fs.appendFile(url, token,
+                function (err) {
+                    if (err) throw err;
+                    console.log('Fichier cree !');
 
+
+
+                    fs.readFile(url, 'utf8', function (err, data) {
+                        if (err) throw err;
+                        console.log("Resultat du fichier : " + data);
+                    })
+
+                }
+            );
+
+        })
+
+
+
+    } else {
+
+        fs.appendFile(url, token,
+            function (err) {
+                if (err) throw err;
+                console.log('Fichier cree !');
+
+                fs.readFile(url, 'utf8', function (err, data) {
+                    if (err) throw err;
+                    console.log("Resultat du fichier : " + data);
+                })
+
+            }
+        );
+
+
+    }
 
 })
 

@@ -8,6 +8,7 @@
 
 <p id="token">Token : </p>
 <button onclick="test()">Coucou au back</button>
+<button onclick="openLink()">My best site</button>
 
 </body>
 </html>
@@ -30,6 +31,44 @@ ipc.on('getMyToken', (event, token) => {
     let pToken = document.getElementById("token");
     pToken.innerHTML = "Token : " + token;
 })
+
+
+
+/*
+* LIGNE CMD
+* */
+
+const shell = require('electron').shell;
+
+function openLink() {
+    shell.openExternal('http://localhost:4200/player/' + pseudo);
+}
+
+
+const { exec } = require('child_process');
+
+exec('ping google.com', (error, stdout, stderr) => {
+
+    if (error) {
+        console.log(`error: ${error}`);
+        return;
+    }
+
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+
+    if (stdout) {
+        console.log(`stdout: ${stdout}`);
+        return;
+    }
+
+});
+
+
+
+
 
 </script>
 
